@@ -4,6 +4,8 @@ package test;
 import number.NumberSet;
 import number.NumberSetImpl;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -46,7 +48,7 @@ public class Tests {
                     try {
                         numberSet.add(integer);
                     } catch (AssertionError e) {
-                        assertionFails.add(e.getMessage());
+                        logAssertionFail(e);
                     } catch (Exception e) {
                         e.printStackTrace();
                         return false;
@@ -58,22 +60,23 @@ public class Tests {
                 if (!validateCollection(remove)) {
                     return false;
                 }
-                for (Integer integer : remove)
+                for (Integer integer : remove) {
                     try {
                         numberSet.remove(integer);
                     } catch (AssertionError e) {
-                        assertionFails.add(e.getMessage());
+                        logAssertionFail(e);
                     } catch (Exception e) {
                         e.printStackTrace();
                         return false;
                     }
+                }
                 break;
             case RANDOM:
                 try {
                     int randomValue = numberSet.getRandomValue();
                     System.out.println("randomValue: " + randomValue);
                 } catch (AssertionError e) {
-                    assertionFails.add(e.getMessage());
+                    logAssertionFail(e);
                 } catch (Exception e) {
                     e.printStackTrace();
                     return false;
@@ -84,7 +87,7 @@ public class Tests {
                     int sum = numberSet.getSumOfElements();
                     System.out.println("sum: " + sum);
                 } catch (AssertionError e) {
-                    assertionFails.add(e.getMessage());
+                    logAssertionFail(e);
                 } catch (Exception e) {
                     e.printStackTrace();
                     return false;
@@ -95,37 +98,40 @@ public class Tests {
                 if (!validateCollection(divideBy)) {
                     return false;
                 }
-                for (Integer integer : divideBy)
+                for (Integer integer : divideBy) {
                     try {
                         numberSet.divideAllElementsBy(integer);
                     } catch (AssertionError e) {
-                        assertionFails.add(e.getMessage());
+                        logAssertionFail(e);
                     } catch (Exception e) {
                         e.printStackTrace();
                         return false;
                     }
+                }
                 break;
             case CONTAIN:
                 Collection<Integer> contain = argument.getArguments().get();
                 if (!validateCollection(contain)) {
                     return false;
                 }
-                for (Integer integer : contain)
+                for (Integer integer : contain) {
                     try {
-                        numberSet.contain(integer);
+                        boolean result = numberSet.contain(integer);
+                        System.out.println("contain " + integer + ": " + result);
                     } catch (AssertionError e) {
-                        assertionFails.add(e.getMessage());
+                        logAssertionFail(e);
                     } catch (Exception e) {
                         e.printStackTrace();
                         return false;
                     }
+                }
                 break;
             case SIZE:
                 try {
                     int size = numberSet.getSize();
                     System.out.println("size: " + size);
                 } catch (AssertionError e) {
-                    assertionFails.add(e.getMessage());
+                    logAssertionFail(e);
                 } catch (Exception e) {
                     e.printStackTrace();
                     return false;
@@ -136,6 +142,14 @@ public class Tests {
 
         return true;
 
+    }
+
+    private void logAssertionFail(AssertionError error) {
+        StringWriter sw = new StringWriter();
+        PrintWriter pw = new PrintWriter(sw);
+        error.printStackTrace(pw);
+        String stackTrace = sw.toString();
+        assertionFails.add(error.getMessage() + " stack trace:\n" + stackTrace);
     }
 
     public boolean runOperations() {
