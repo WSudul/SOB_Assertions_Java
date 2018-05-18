@@ -14,7 +14,7 @@ public class Main {
 	// write your code here
         Queue<TestArgument> testArgumentQueue = new LinkedList<>();
 
-        testArgumentQueue.add(new TestArgument(TestOperation.SUM,
+        testArgumentQueue.add(new TestArgument(TestOperation.ADD,
                 Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 0, -1, -2, -3, -4)));
         testArgumentQueue.add(new TestArgument(TestOperation.SIZE));
         testArgumentQueue.add(new TestArgument(TestOperation.SUM));
@@ -32,7 +32,8 @@ public class Main {
 
         Tests tests = new Tests(testArgumentQueue);
         tests.runOperations();
-
+       
+        System.out.println(tests.getAssertionFails());
 
     }
 }

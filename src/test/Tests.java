@@ -12,7 +12,11 @@ import java.util.Queue;
 public class Tests {
 
     private List<String> assertionFails;
-    private boolean endOfTest;
+    public List<String> getAssertionFails() {
+		return assertionFails;
+	}
+
+	private boolean endOfTest;
     private NumberSet numberSet;
     private Queue<TestArgument> arguments;
 
@@ -38,7 +42,7 @@ public class Tests {
                 if (!validateCollection(add)) {
                     return false;
                 }
-                for (Integer integer : add)
+                for (Integer integer : add) {
                     try {
                         numberSet.add(integer);
                     } catch (AssertionError e) {
@@ -47,6 +51,7 @@ public class Tests {
                         e.printStackTrace();
                         return false;
                     }
+                }
                 break;
             case REMOVE:
                 Collection<Integer> remove = argument.getArguments().get();
