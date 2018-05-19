@@ -10,6 +10,5 @@ public interface NumberSet {
 	public boolean contain(int i);
 	public int getSize();
 	
-	
 
 }
