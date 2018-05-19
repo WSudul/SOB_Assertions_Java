@@ -20,11 +20,10 @@ public class NumberSetImpl implements NumberSet {
     	assert (size>0): "No values to remove";
     	for(int j=0; j< size; j++) {
     		if (i==nSet[j]) {
-    			while(nSet[size]!=i) {
+    			while(nSet[size]==i) {
     				size--;
     			}
-    			nSet[j]=nSet[size];
-    			size--;
+    			nSet[j]=nSet[--size];
     		}
     	}
     	assert (size<sizeBefore): "Value not found";
