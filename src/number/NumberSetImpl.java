@@ -31,11 +31,11 @@ public class NumberSetImpl implements NumberSet {
     }
     
 
-    @Override //TODO IMPLEMENTATION
+    @Override
     public int getRandomValue() throws Exception {
     	assert (size>0): "No values to randomly select ";
-    	
-        return 0;
+    	int index = (int)(Math.random()*size);
+        return nSet[index];
     }
 
     @Override
@@ -52,11 +52,17 @@ public class NumberSetImpl implements NumberSet {
     public void divideAllElementsBy(int d) throws Exception {
     	assert (size>0): "No values to divide ";
     	assert (d!=0): "No dividing by zero! ";
-    	
+    	for(int i=0; i<size; i++) {
+            nSet[i] = nSet[i] / d;
+        }
     }
 
     @Override // TODO IMPLEMENTATION
     public boolean contain(int i) {
+        for(int j=0; j<size; j++){
+            if(nSet[j]==i)
+                return true;
+        }
         return false;
     }
 
