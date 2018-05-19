@@ -28,7 +28,6 @@ public class NumberSetImpl implements NumberSet {
     	}
     	assert (size<sizeBefore): "Value not found";
     }
-    
 
     @Override
     public int getRandomValue() throws Exception {
